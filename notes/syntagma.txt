@@ -1,0 +1,61 @@
+Explaining COBOL Syntax: *the fact the plural for synytax is not syntaces/syntie just puts the finger on my opinion of the english language.
+
+   ┌─ NONE-EQUEVALENTS ──┬──────────────────────────────┬───────────────────────────────────────────────────────┐
+   │ Concept             │ Syntax                       │ Notes                                                 │
+   ├─────────────────────┼──────────────────────────────┼───────────────────────────────────────────────────────┤
+   │ Numeric "empty"     │ ZERO / ZEROS / ZEROES        │ MOVE ZERO TO my-field                                 │
+   │ String "empty"      │ SPACE / SPACES               │ MOVE SPACES TO my-field                               │
+   │ Pointer null        │ NULL / NULLS                 │ Only for POINTER or PROCEDURE-POINTER types           │
+   │ Low value           │ LOW-VALUE                    │ Binary zeros (x'00'), often used as "unset" sentinel  │
+   │ High value          │ HIGH-VALUE                   │ Binary 255s, used as a ceiling/unset sentinel         │
+   └─────────────────────┴──────────────────────────────┴───────────────────────────────────────────────────────┘
+
+
+structure of syntax:
+
+FILE (the file itself)
+    └─DIVISIONS 
+        └─SECTION
+            └─PARAGRAPH
+                └─CLAUSE
+
+DIVISIONS: mainly 4 ─ [identification, environment, data, procedure] ──> subdivided into [sections]
+    └─SECTION ─ a key point of the definintion of a program that needs more than one field ──> subdivided into [sentences, statements, and entries]
+        └─PARAGRAPH ─ each field/line of a division or section, named block of code that performs a specific task or groups related statement ──> subdivided into [sentences, statements, and entries]
+            ├─ENTRIES ─ (multi-line) a series of clauses and ends in a ".". i.e.: 
+            ├─CLAUSE ─ (inline) declears special attributes of a entry/paragraph; inline pointers i.e.: (PUBLIC) in ──> _paragraphName_. _someParagraphValue_ PUBLIC
+            ├─SENTENCES ─ (multi-line) sequence of one or more statements. like a list without "," seperator, ending in "." i.e.: MOVE ZERO TO TOTAL \n ADD 5 TO TOTAL \n DISPLAY TOTAL. *NOTE: "\n" is just to indicate a new line, irl you would do an actual new line.
+            ├─STATEMENTS ─ (inline) specifies an 'action' to be taken by the program. i.e.: (ADD) in ──> ADD _someCommands_ _otherKeywords_ ──> (ADD a TO b GIVING c ROUNDED)
+            └─PHRASES ─ (inline) Each clause or statement in a program can be subdivided into smaller units called phrases. i.e.: ("GIVING c" and "ROUNDED") in ──> _someStatement_ _someCommands_ GIVING c ROUNDED ──> ADD a TO b GIVING c ROUNDED
+
+
+__ naming convensions _______ *idk what else to call it. 
+PIC :  (PICTURE clause) specifies the general characteristics and editing requirements of an elementary item. (SIMPLY PUT ──> defines the limitation of a variable). i.e.: (PIC 99) in ──> 01  AGE    PIC 99. (meaning; AGE can hold 2 digits)
+COL :  (COLUMN function) column positioning (in screen handling and report formatting).
+VALUE: sets a value if a default value should be present. 
+
+figurative constants: 
+    ZERO, ZEROES : assign value to a zero-value (numeric empty). 
+    SPACE, SPACES : assign value to a space-value (alphanumeric empty).
+    HIGH-VALUE, HIGH-VALUES : is going to assign the biggest value of a defined type.
+    LOW-VALUE, LOW-VALUES : is going to assign the smallest value of a defined type.
+
+data type symbols
+    9  : (data type symbols) numeric digit (0–9). -> every "9" represents a digit. i.e.: [9. means single digit, 999. means three digits]. 
+    A  : (data type symbols) alphabetic character (A–Z, a–z, space). -> follow by a number limitation "(_limit_)" i.e.: A(10) means ten letters.
+    X  : (data type symbols) any character (alphanumeric). -> follow by a number limitation "(_limit_)" i.e.: X(10) means ten characters.
+    S  : (data type symbols) indicates a signed number. -> -> followed by a digit limitation "9", then number to multiply the digit with "(_limit_)" i.e.: S9(5) means (S:digit*5) a signed number with five digits.
+    V  : (data type symbols) implied decimal point. -> "V" followed by a digit limitation "9" i.e.: V99. means two decimals.
+    Z  : (data type symbols) zero suppression (extends digits "9" and tells the program to replace "0" with spaces so the number 12 for a three-digit variable gets displayed like this " 12" and not like this "012"). -> "V" followed by a digit limitation "9" i.e.: ZZ9 means up to two leading zeros will be replaced by spaces.
+
+level numbers : define the hierarchy and structure of data items.
+                i.e.:
+                01  PERSON.
+                    05  NAME     _someStatement_.
+                    05  AGE      _someStatement_.
+                    *NOTE you can use any number for children, but comonly its done in 5's [05, 10, 15, etc]
+                    *Constraints; child-number must be bigger than parent.
+                    *these number represents prioritization for when building a table.
+
+
+

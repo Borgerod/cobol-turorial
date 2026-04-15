@@ -1,0 +1,4 @@
+*making sure youre in the correct path*
+cd "C:/Users/borge/Documents/GitHub/cobol-turorial"
+cobc -x cobolTutBase.cob
+./cobolTutBase

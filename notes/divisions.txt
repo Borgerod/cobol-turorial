@@ -1,0 +1,120 @@
+__ MAIN DIVISIONS ___
+
+(1) IDENTIFICATION DIVISION.
+    ! must be the first division in each COBOL [source program,  factory definition, object definition, method definition].
+    - describes identification about author and file or context to the reader of user, but most importantly context for the software when fetching files and data.
+    - names the [program, class, method] and identifies the [factory definition, object definition]
+    - it CAN include: [author, date file was written, date of compilation, ... other documentary information].
+
+    NOTES: 
+        >unless otherwise stated, this applies.
+        - the "-ID" paragraph MUST be the first paragraph.
+        - other paragraphs are OPTIONAL, can be in ANY order.
+
+    here are examples on how you would name different files: 
+    
+        (1) ___ program identification_____:
+            IDENTIFICATION DIVISION.
+            PROGRAM-ID. atm. *must be the first paragraph
+            * other paragraphs are _optional_, can be in _any_ order
+            
+            >optional paragraphs
+            AUTHOR. Aleksander Bogerød.
+            DATE-WRITTEN. 15.04.2026.
+            DATE-COMPILATION.  *good practise to leave it blank since compilers are using this to autofill it, so not to mess with it. 
+
+
+        (2) ___ class identification_____:
+            IDENTIFICATION DIVISION.
+            CLASS-ID. user-account
+            CLASS-ID. calculate-interest PUBLIC FINAL.
+                    └───────┬────────┘ └────┬──────┘
+                            |               * (2) assigns selected attributes to that method. 
+                            * (1) The METHOD-ID paragraph specifies the name by which a method is known and-
+
+        (3) ___ factory identification_____:
+            IDENTIFICATION DIVISION.
+            FACTORY-ID. 
+            *!ONLY contains the ID-paragraph.
+
+        (4) ___ object identification_____:
+            IDENTIFICATION DIVISION.
+            OBJECT-ID. 
+            *!ONLY contains the ID-paragraph.
+        
+        (4) ___ method identification_____:
+            IDENTIFICATION DIVISION.
+            METHOD-ID. calculate-interest.
+            *The METHOD-ID paragraph is required and must be the first paragraph in a method identification division.
+            METHOD-ID. calculate-interest PUBLIC STATIC.
+                    └───────┬────────┘ └─────┬──────┘
+                            |                * (2) assigns selected attributes to that method. 
+                            * (1) The METHOD-ID paragraph specifies the name by which a method is known and-               
+
+(2) ENVIRONMENT DIVISION.
+    contains;
+    (1) configuration section - (ENVIRONMENT information):
+        * what computer it is running on, devices that are available, other country specific information.
+        SOURCE-COMPUTER: computer src.
+        SOURCE-COMPUTER: specifies the computer where the source program is compiled.
+        OBJECT-COMPUTER: specifies the computer where the program will run.
+        SPECIAL-NAMES: defines special system names, such as currency symbols, decimal points, or classifying devices.
+        Example:
+            CONFIGURATION SECTION.
+            SOURCE-COMPUTER. PC.
+            OBJECT-COMPUTER. PC.
+            SPECIAL-NAMES. CURRENCY SIGN IS "€".
+
+    (3) input-output section:
+        - FILE-CONTROL paragraph: explains what files the program uses, how they are connected to system's external files.
+        - I-O-CONTROL paragraph: define special input-output handling options; buffering, file organization, to optimize or control file operations. 
+        
+        Example: 
+            ENVIRONMENT DIVISION.
+            INPUT-OUTPUT SECTION.
+            FILE-CONTROL.
+                SELECT myfile ASSIGN TO 'myfile.dat'.
+            I-O-CONTROL.
+                APPLY WRITE-ONLY ON myfile.
+
+(3) DATA DIVISION.
+    *describes the data duh, contains mainly 4 sections;
+    (1) FILE SECTION.
+        - defines the structure of data files.
+        - MUST begin with header.
+
+    (2) WORKING-STORAGE SECTION.
+        - *SIMPLY PUT ──> WORKING-STORAGE SECTION, is the section where you decleare 'variables'. (GLOBAL)
+        - describes data records that are NOT 'part of data files' but ARE 'developed and processed by a program or method'.
+        - also describes; data items whose values are assigned in the source program/method and do not change during execution - AKA static data.
+
+    (3) LOCAL-STORAGE SECTION.
+        -  - *SIMPLY PUT ──> LOCAL-STORAGE SECTION, is the section where you decleare 'variables'. (LOCAL)
+        - decleared variables that; 
+            - are created fresh each time a program/method/procedure is called.
+            - are deleted when it ends
+
+    (4) LINKAGE SECTION.
+        - describes data made available from another program/method. 
+        - SIMPLY PUT ──> LINKAGE SECTION, is the section where imported variables are decleared, its the same as parameter part of a function.
+        
+    (?) REPORT SECTION. 
+         (!depricated)
+        - can be ignored.
+        - used for generating reports.
+
+
+
+(4) PROCEDURE DIVISION. (optional)
+    - the instructions and logic (all actions and calculations).
+    - this is where the actual code begins. 
+    - must end with "STOP RUN."
+    example:
+        PROCEDURE DIVISION.
+            DISPLAY "Hello, world".
+            STOP RUN.
+
+
+PROGRAM-ID. coboltut.
+AUTHOR. Aleksander Bogerød.
+DATE-WRITTEN. 15.04.2026.
