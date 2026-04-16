@@ -1,0 +1,5 @@
+#cd "C:/Users/borge/Documents/GitHub/cobol-turorial/test-use-function"
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/test-use-function"
+cobc -m parseName.cob
+cobc -x parsingTest.cob
+./parsingTest
