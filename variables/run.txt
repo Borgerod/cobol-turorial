@@ -1,9 +1,13 @@
 *making sure youre in the correct path*
-#cd "C:/Users/borge/Documents/GitHub/cobol-turorial"
-cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/variables"
+*cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/variables"
+*cd "C:/Users/borge/Documents/GitHub/cobol-turorial/variables"
+cd variables
 cobc -x tutVariables.cob
 ./tutVariables
 
 
 onliner: 
 cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/variables" && cobc -x tutVariables.cob && ./tutVariables
+cd /cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/variables && cobc -x tutVariables.cob && ./tutVariables
+
+

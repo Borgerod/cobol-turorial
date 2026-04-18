@@ -1,0 +1,13 @@
+*making sure youre in the correct path*
+*cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/math"
+*cd "C:/Users/borge/Documents/GitHub/cobol-turorial/math"
+cd variables
+cobc -x tutMath.cob
+./tutMath
+
+
+onliner: 
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/math" && cobc -x tutMath.cob && ./tutMath
+cd /cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/math && cobc -x tutMath.cob && ./tutMath
+
+

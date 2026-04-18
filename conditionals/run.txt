@@ -1,0 +1,11 @@
+*making sure youre in the correct path*
+*cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/conditionals"
+*cd "C:/Users/borge/Documents/GitHub/cobol-turorial/conditionals"
+cd conditionals
+cobc -x tutCondition.cob
+./tutCondition
+
+
+onliner: 
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/conditionals" && cobc -x tutCondition.cob && ./tutCondition
+cd /cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/conditionals && cobc -x tutCondition.cob && ./tutCondition
