@@ -8,11 +8,20 @@
        ENVIRONMENT DIVISION.
        CONFIGURATION SECTION.
        SPECIAL-NAMES.
-           CLASS passingScore IS "A" THRU "C", "D".
-           CLASS passingScore2 IS "A" THROUGH "C", "D".
+           CLASS passingScoreAsian IS "B" THRU "C", "D".
+           CLASS passingScoreJewish IS "A", "B", "C", "D", "E", "F". 
+           CLASS passingScoreOther IS "F" THRU "C", "D".
      
        DATA DIVISION.
        WORKING-STORAGE SECTION.
+       
+     
+       01 allowedGrades PIC X(6).
+
+
+
+       01  designated-score-test  PIC X(1).
+       01 ethnicity PIC X(6) VALUE "Other ".
        01 test-number PIC X.
            88 is-prime VALUE "1","3","5","7".
            88 is-composite VALUE "4","6","8","9".
@@ -39,6 +48,8 @@
            05  Score-Array REDEFINES Score-Table.
                10  Score-Entry   PIC 9 OCCURS 6 TIMES.
            05  Score             PIC 9.
+           05 MatchCount PIC 9 VALUE 0.
+               88 has-passed VALUE 1.
        PROCEDURE DIVISION.
            DISPLAY "Enter Age : " WITH NO ADVANCING
 
@@ -81,27 +92,52 @@
                
            END-IF
            
+      * ethnicity
+           DISPLAY "Ethnicity"
+           ACCEPT ethnicity
 
+      *    CALL "GET-SCORE-MODEL" USING ethnicity designated-score-test
+      *    IF Score = designated-score-test THEN
+      *        DISPLAY "You Passed"
+      *    ELSE
+      *        DISPLAY "You Failed"
+      *    END-IF
+      *    
+           
+           EVALUATE ethnicity
+               WHEN "Asian"
+                   MOVE "A" TO allowedGrades
+               WHEN "Jewish"
+                   MOVE "ABCDEF" TO allowedGrades
+               WHEN OTHER
+                   MOVE "ABCDE" TO allowedGrades
+           END-EVALUATE
+          
+           
+           INSPECT allowedGrades TALLYING MatchCount FOR ALL Score
+           INSPECT allowedGrades TALLYING MatchCount FOR ALL Grade
+           IF MatchCount > 0
+      *    IF has-passed
+               DISPLAY "You Passed"
+           ELSE
+               DISPLAY "You Failed"
+           END-IF
+           STOP RUN.
 
-      *    switch (EVALUATE)
-      *    EVALUATE Age
-      *        WHEN < 5
-      *            DISPLAY "Stay Home"
-      *        WHEN 5
-      *            DISPLAY "Go to kindergarden"
-      *        WHEN 5 THRU 18
-      *            DISPLAY "Go to school"
-      *    END-EVALUATE
+           DISPLAY "Allowed Grades: " allowedGrades
+      *NUMERIC ALPHABETIC ALPHABETIC-UPPER
+           IF Score IS NOT NUMERIC THEN
+               DISPLAY "Not a number"
+           END-IF
+       
+           IF Age > 18 THEN
+               SET can-vote TO TRUE
+           ELSE SET can-not-vote TO TRUE
+           END-IF 
+           DISPLAY "User is old enough to Vote :" Can-vote-flag
 
-      *    switch (EVALUATE) evaluating single statements 
-      *    EVALUATE TRUE
-      *        WHEN Age < 5
-      *            DISPLAY "Stay Home"
-      *        WHEN Age = 5
-      *            DISPLAY "Go to kindergarden"
-      *        WHEN Age > 5 AND Age <= 18
-      *            DISPLAY "Go to school"
-      *    END-EVALUATE
-      *  
 
            STOP RUN.
+           END PROGRAM tutCondition.
+
+      

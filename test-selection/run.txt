@@ -1,0 +1,3 @@
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/test-selection" && cobc -x selection.cob && ./selection
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/test-selection" && cobc -x -free selection.cob -o selection ./selection
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/test-selection" && cobc -x -free selection.cob && ./selection

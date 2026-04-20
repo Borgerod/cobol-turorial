@@ -9,3 +9,5 @@ cobc -x tutCondition.cob
 onliner: 
 cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/conditionals" && cobc -x tutCondition.cob && ./tutCondition
 cd /cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/conditionals && cobc -x tutCondition.cob && ./tutCondition
+
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/conditionals" && cobc -x tutCondition2.cob && ./tutCondition2
