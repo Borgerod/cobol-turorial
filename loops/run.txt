@@ -1,0 +1,6 @@
+
+
+
+loops.cob:
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/loops" && cobc -x loops.cob && ./loops
+cd /cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/loops && cobc -x loops.cob && ./loops

@@ -1,0 +1,3 @@
+one-liner: 
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/decimal-arithmatics" && cobc -x decimal-arithmatics.cob && ./decimal-arithmatics
+cd /cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/decimal-arithmatics && cobc -x decimal-arithmatics.cob && ./decimal-arithmatics

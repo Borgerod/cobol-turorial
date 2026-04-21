@@ -8,27 +8,34 @@
        ENVIRONMENT DIVISION.
        CONFIGURATION SECTION.
        SPECIAL-NAMES.
-           CLASS passingScoreAsian IS "B" THRU "C", "D".
-           CLASS passingScoreJewish IS "A", "B", "C", "D", "E", "F". 
-           CLASS passingScoreOther IS "F" THRU "C", "D".
-     
+      * NOTE 
+      *    Not in use, wanted to set esignated-score-test to
+      *    a specific passingScore class based on Ethinicty results 
+      *    to make it more dynamic, but that is not allowed apparently.
+      *    CLASS passingScoreAsian IS "A" THRU "C", "D".*> just to show
+      *    CLASS passingScore IS "A" THRU passing-score-end.
+           CLASS passingScoreAsian IS "A".
+           CLASS passingScore IS "A" THRU "E".
+           
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       
-     
+ 
+      * not in use (used to show my original idea)
+       01 designated-score-test  PIC X(1).
        01 allowedGrades PIC X(6).
-
-
-
-       01  designated-score-test  PIC X(1).
        01 ethnicity PIC X(6) VALUE "Other ".
-       01 test-number PIC X.
+       
+       01 test-length PIC 99 VALUE 0.
+           88 is-single VALUE 1.
+       01 test-number PIC X(10).
            88 is-prime VALUE "1","3","5","7".
            88 is-composite VALUE "4","6","8","9".
            88 is-odd VALUE "1","3","5","7","9".
            88 is-even VALUE "2","4","6","8".
            88 is-less-than-5 VALUE "0" THRU "4".
            88 is-number VALUE "0" THRU "9".
+           88 is-x VALUE "X".
+           88 is-empty VALUE SPACE.
        01 Student.
            05 Age    PIC 9(3) VALUE 000.
      
@@ -92,50 +99,89 @@
                
            END-IF
            
-      * ethnicity
-           DISPLAY "Ethnicity"
+      *    AsianClause ALT 1
+      *    uses a higher expectation if you are of asian background. 
+           DISPLAY "Enter your ethnicity" WITH NO ADVANCING
            ACCEPT ethnicity
 
-      *    CALL "GET-SCORE-MODEL" USING ethnicity designated-score-test
-      *    IF Score = designated-score-test THEN
+      *    ALT 1
+      *    EVALUATE ethnicity
+      *        WHEN "Asian"
+      *            MOVE "A" TO allowedGrades
+      *        WHEN OTHER
+      *            MOVE "ABCDE" TO allowedGrades
+      *    END-EVALUATE
+      *   
+      *    INSPECT allowedGrades TALLYING MatchCount FOR ALL Grade
+      *    IF MatchCount > 0
       *        DISPLAY "You Passed"
       *    ELSE
       *        DISPLAY "You Failed"
       *    END-IF
-      *    
-           
+
+      *    ALT 2
            EVALUATE ethnicity
                WHEN "Asian"
-                   MOVE "A" TO allowedGrades
-               WHEN "Jewish"
-                   MOVE "ABCDEF" TO allowedGrades
+                   IF Grade passingScoreAsian
+                       DISPLAY "You Passed"
+                   ELSE
+                       DISPLAY "You Failed"
+                   END-IF
                WHEN OTHER
-                   MOVE "ABCDE" TO allowedGrades
+                   IF Grade passingScore
+                       DISPLAY "You Passed"
+                   ELSE
+                       DISPLAY "You Failed"
+                   END-IF
            END-EVALUATE
-          
-           
-           INSPECT allowedGrades TALLYING MatchCount FOR ALL Score
-           INSPECT allowedGrades TALLYING MatchCount FOR ALL Grade
-           IF MatchCount > 0
-      *    IF has-passed
-               DISPLAY "You Passed"
-           ELSE
-               DISPLAY "You Failed"
-           END-IF
-           STOP RUN.
 
-           DISPLAY "Allowed Grades: " allowedGrades
       *NUMERIC ALPHABETIC ALPHABETIC-UPPER
            IF Score IS NOT NUMERIC THEN
                DISPLAY "Not a number"
-           END-IF
-       
-           IF Age > 18 THEN
-               SET can-vote TO TRUE
-           ELSE SET can-not-vote TO TRUE
-           END-IF 
-           DISPLAY "User is old enough to Vote :" Can-vote-flag
+           END-IF       
 
+           IF Age > 18 THEN 
+                   SET can-vote TO TRUE
+               ELSE 
+                   SET can-not-vote TO TRUE
+               DISPLAY "User is old enough to Vote :" Can-vote-flag
+           END-IF 
+
+
+      *    EVALUATE NUMBER
+           PERFORM UNTIL is-x
+           MOVE 0 TO test-length
+           MOVE SPACES TO test-number
+           DISPLAY "Enter Single Number [press 'X' to Exit]:" 
+               WITH NO ADVANCING
+           ACCEPT test-number
+           INSPECT FUNCTION TRIM(test-number) TALLYING test-length 
+               FOR ALL CHARACTERS
+      
+           IF test-number(1:1) = "X"
+               EXIT PERFORM
+           END-IF
+           IF NOT is-number OR NOT is-single OR is-empty
+               IF is-empty
+                   DISPLAY "Error: is empty"
+               ELSE
+                   IF NOT is-number
+                        DISPLAY "Error: not a number"
+                   END-IF
+                   IF NOT is-single
+                       DISPLAY "Error: not a single"
+                   END-IF
+               END-IF
+           ELSE
+               DISPLAY "=> Your number is " WITH NO ADVANCING
+               EVALUATE TRUE
+                   WHEN is-prime DISPLAY "Prime"
+                   WHEN is-odd DISPLAY "Odd"
+                   WHEN is-even DISPLAY "Even"
+                   WHEN is-composite DISPLAY "Composite"
+                   WHEN is-less-than-5 DISPLAY "Less than 5"
+               END-EVALUATE
+           END-PERFORM.
 
            STOP RUN.
            END PROGRAM tutCondition.

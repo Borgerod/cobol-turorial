@@ -1,0 +1,3 @@
+one-liner: 
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/subroutines" && cobc -m COME-GET-SUM.cob && cobc -x routine.cob && ./routine
+cd /cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/subroutines && cobc -m routine.cob && ./routine

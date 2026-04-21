@@ -1,0 +1,3 @@
+one-liner: 
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/paragraphs" && cobc -x paragraphs.cob && ./paragraphs
+cd /cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/paragraphs && cobc -x paragraphs.cob && ./paragraphs
