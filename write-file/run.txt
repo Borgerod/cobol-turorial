@@ -1,0 +1,8 @@
+one-liner: 
+cd "C:/Users/oppdr/Documents/GitHub/cobol-turorial/write-file" && cobc -x write-file.cob && ./write-file
+cd "/cygdrive/c/Users/borge/Documents/GitHub/cobol-turorial/write-file" && cobc -x write-file.cob && ./write-file
+
+
+      * !prep: create a Customer.dat file, run the command: 
+      *  fsutil FILE createnew Customer.dat 2000
+      *                                     2000 stands for bytes
