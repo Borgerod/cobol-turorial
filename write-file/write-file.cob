@@ -21,8 +21,7 @@
                05 customer-name.
                    10 first-name PIC a(8).
                    10 last-name PIC a(15).
-      *    
-
+                   
        WORKING-STORAGE SECTION.
            01 WS-CustomerData. *> make customer RECORD:
                05 WS-ID-num PIC 9(5).
