@@ -9,12 +9,10 @@
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
            SELECT CustomerFile ASSIGN TO "Customer.dat"
-               ORGANIZATION IS LINE SEQUENTIAL 
+               ORGANIZATION IS LINE SEQUENTIAL
                *> means: each piece OF DATA uses one LINE.
                ACCESS IS SEQUENTIAL.
                
-      *CONFIGURATION SECTION.
-       
        DATA DIVISION.
        FILE SECTION.
            FD CustomerFile.  *> FD = file description
